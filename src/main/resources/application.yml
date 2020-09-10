@@ -1,0 +1,39 @@
+debug: true
+server:
+  port: 9999
+  ssl:
+    keyStore: file:/etc/cas/thekeystore
+    keyStorePassword: changeit
+    keyPassword: changeit
+
+security:
+  user:
+    password: user
+  ignored: /,/favicon.ico,/index.html,/home.html,/dashboard.html,/js/**,/css/**,/webjars/**
+  sessions: ALWAYS
+  oauth2:
+    sso:
+      loginPath: /dashboard/login
+management:
+  security:
+    role: HERO
+
+logging:
+  level:
+    org.springframework: INFO
+    com.netflix.discovery: 'OFF'
+
+---
+spring:
+  profiles: cas
+security:
+  oauth2:
+    client:
+      clientId: client
+      clientSecret: secret
+      accessTokenUri: https://mmoayyed.unicon.net:8443/cas/oauth2.0/accessToken
+      userAuthorizationUri: https://mmoayyed.unicon.net:8443/cas/oauth2.0/authorize
+      clientAuthenticationScheme: form
+    resource:
+      userInfoUri: https://mmoayyed.unicon.net:8443/cas/oauth2.0/profile
+      preferTokenInfo: false
